@@ -1,24 +1,32 @@
 import React from "react"
-import { AnimalCard } from "./animal/AnimalCard"
+// import { AnimalCard } from "./animal/AnimalCard"
 import "./animal/Animal.css"
-import {CustomerCard} from "./customer/Customer"
-import { LocationCard } from "./location/Location"
-import { EmployeeCard } from "./employee/Employee"
+// import {CustomerCard} from "./customer/Customer"
+// import { LocationCard } from "./location/Location"
+// import { EmployeeCard } from "./employee/Employee"
 import { PropsAndState } from "./PropsAndState"
+import { NavBar } from "./nav/NavBar"
+import { ApplicationViews } from "./ApplicationViews"
 
 export const Kennel = () => (
+    
     <>
-        <h2>Nashville Kennels</h2>
-        <small>Loving care when you're not there.</small>
+     <>
+        <NavBar />
+        <ApplicationViews />
+    </>
+       
 
-        <address>
-            <div>Visit Us at the Nashville North Location</div>
-            <div>500 Puppy Way</div>
-        </address>
+        {/* <h2>Nashville Kennels</h2>
+<small>Loving care when you're not there.</small>
 
-        
+<address>
+    <div>Visit Us at the Nashville North Location</div>
+    <div>500 Puppy Way</div>
+</address> */}
         <PropsAndState yourName={"Heaven"} />
-        <h2>Animals</h2>
+
+        {/* <h2>Animals</h2>
         <article className="animals">
             <AnimalCard />
             <AnimalCard />
@@ -50,7 +58,10 @@ export const Kennel = () => (
             <CustomerCard />
             
 
-        </article>
+        </article> */}
 
     </>
 )
+
+
+
