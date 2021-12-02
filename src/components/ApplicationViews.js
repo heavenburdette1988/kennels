@@ -19,22 +19,17 @@ import { LocationList } from "./location/LocationList"
 // controller component 
 export const ApplicationViews = () => {
     return (
-        <LocationProvider>
-        <EmployeeProvider>
-           <CustomerProvider>
-             <AnimalProvider>
-     <Routes>
-         <Route path="/" element={<Home />} />
-          <Route path="customers/*" element={<CustomerList />} />
-            <Route path="locations/*" element={<LocationList />} />
-            <Route path="employees/*" element={<EmployeeList />} />
-         <Route path="animals/*" element={<AnimalList />} />
-     </Routes>
+        
+<AnimalProvider>
+    <LocationProvider>
+        <CustomerProvider>
+             <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="animals/*" element={<AnimalList />} />
+        </Routes>
+        </CustomerProvider>
+    </LocationProvider>
 </AnimalProvider>
-           </CustomerProvider>
-</EmployeeProvider>
-</LocationProvider>            
-       
 
        
     )
