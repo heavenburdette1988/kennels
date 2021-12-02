@@ -5,7 +5,10 @@ import "./Animal.css"
 import { LocationContext } from "../location/LocationProvider"
 import { CustomerContext } from "../customer/CustomerProvider"
 import { AnimalCard } from "./AnimalCard"
+import { useNavigate } from "react-router"
 
+
+    
 export const AnimalList = () => {
   // This state changes when `getAnimals()` is invoked below
   const { animals, getAnimals } = useContext(AnimalContext)
@@ -16,13 +19,21 @@ export const AnimalList = () => {
   useEffect(() => {
     console.log("AnimalList: Initial render before data")
     getLocations()
+    // getAnimals()
     .then(getCustomers)
     .then(getAnimals)
 }, [])
 
+const navigate = useNavigate()
 
 return (
-    <div className="animals">
+    
+            <>
+            <h2>Animals</h2>
+            <button onClick={() => {navigate("create")}}>
+                Add Animal
+            </button>
+        <div className="animals">
         {animals.map(animal => {
     const owner = customers.find(c => c.id === animal.customerId)
     const clinic = locations.find(l => l.id === animal.locationId)
@@ -34,5 +45,8 @@ return (
 })
 }
     </div>
-)
+    </>
+    )
 }
+
+
