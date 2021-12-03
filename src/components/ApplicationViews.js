@@ -16,11 +16,13 @@ import { LocationProvider } from "./location/LocationProvider"
 import { LocationList } from "./location/LocationList"
 import { AnimalForm } from "./animal/AnimalForm"
 import { EmployeeForm } from "./employee/EmployeeForm"
+import { LocationForm } from "./location/LocationForm"
 
 //Application veiw is where we project what is in your url  When you go to /animals go to animalList  -  Watching URL Bar and wathcing it change showind diff content
 // controller component 
 export const ApplicationViews = () => {
     return (
+       <LocationProvider>
         <EmployeeProvider>
      <AnimalProvider>   
    <LocationProvider>
@@ -31,11 +33,14 @@ export const ApplicationViews = () => {
               <Route path="animals/create/*" element={<AnimalForm />} />
               <Route path="employees/*" element={<EmployeeList />} />
               <Route path="employees/create/*" element={<EmployeeForm />} />
+              <Route path="locations/*" element={<LocationList />} />
+              <Route path="locations/create/*" element={<LocationForm />} />
            </Routes>
        </CustomerProvider>
     </LocationProvider>
  </AnimalProvider>
        </EmployeeProvider>
+       </LocationProvider>
     )
 }
 

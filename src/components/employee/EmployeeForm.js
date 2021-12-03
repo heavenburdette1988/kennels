@@ -72,7 +72,7 @@ export const EmployeeForm = () => {
           <fieldset>
               <div className="form-group">
                   <label htmlFor="name">Employee name:</label>
-                  <input type="text" id="name" required autoFocus className="form-control" placeholder="Employee name" value={employee.name}/>
+                  <input type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Employee name" value={employee.name}/>
               </div>
           </fieldset>
          

@@ -24,7 +24,7 @@ export const Kennel = () => (
     <div>Visit Us at the Nashville North Location</div>
     <div>500 Puppy Way</div>
 </address> */}
-        <PropsAndState yourName={"Heaven"} />
+        {/* <PropsAndState yourName={"Heaven"} /> */}
 
         {/* <h2>Animals</h2>
         <article className="animals">

@@ -73,13 +73,13 @@ export const AnimalForm = () => {
           <fieldset>
               <div className="form-group">
                   <label htmlFor="name">Animal name:</label>
-                  <input type="text" id="name"  required autoFocus className="form-control" placeholder="Animal name" value={animal.name}/>
+                  <input type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Animal name" value={animal.name}/>
               </div>
           </fieldset>
           <fieldset>
               <div className="form-group">
                   <label htmlFor="breed">Breed:</label>
-                  <input type="text" id="breed" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Animal breed" value={animal.breed}/>
+                  <input type="text" id="breed" onChange={handleControlledInputChange}className="form-control" placeholder="Animal breed" value={animal.breed}/>
               </div>
           </fieldset>
           <fieldset>
@@ -108,6 +108,7 @@ export const AnimalForm = () => {
                   </select>
               </div>
           </fieldset>
+
           <button className="btn btn-primary"
             onClick={handleClickSaveAnimal}>
             Save Animal

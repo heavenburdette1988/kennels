@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react"
+import { useNavigate } from "react-router"
 import { LocationCard } from "./Location"
 
 
@@ -16,16 +17,26 @@ export const LocationList = () => {
     getLocations()
 
   }, [])
-
+  const navigate = useNavigate()
 
   return (
+
+    
+    <>
+    <h2>Location</h2>
+    <button onClick={() => {navigate("create")}}>
+        Add Location
+    </button>
     <div className="locations">
       {console.log("LocationList: Render", locations)}
       {
         locations.map(location => {
+
+
           return <LocationCard key={location.id} location={location} />
         })
       }
     </div>
+    </>
   )
 }
