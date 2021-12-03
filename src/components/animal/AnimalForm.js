@@ -21,9 +21,9 @@ export const AnimalForm = () => {
       breed:"",
       locationId: 0,
       customerId: 0
-    });
+    });   // setting the state?
 
-    const navigate = useNavigate();
+    const navigate = useNavigate();   //use nav allows you to change url locations?
 
     /*
     Reach out to the world and get customers state
@@ -38,7 +38,7 @@ export const AnimalForm = () => {
     const handleControlledInputChange = (event) => {
       /* When changing a state object or array,
       always create a copy, make changes, and then set state.*/
-      const newAnimal = { ...animal }
+      const newAnimal = { ...animal } // this is giving newAnimal state and properties
 
       
       /* Animal is an object with properties.
@@ -63,7 +63,7 @@ export const AnimalForm = () => {
         //invoke addAnimal passing animal as an argument.
         //once complete, change the url and display the animal list
         addAnimal(animal)
-        .then(() => navigate("/animals"))
+        .then(() => navigate("/animals")) //telling it to useNavigate to redisplay updated animal list
       }
     }
 

@@ -16,7 +16,7 @@ export const AnimalList = () => {
   const { customers, getCustomers } = useContext(CustomerContext)
 
   //useEffect - reach out to the world for something
-  useEffect(() => {
+  useEffect(() => { // hook
     console.log("AnimalList: Initial render before data")
     getLocations()
     // getAnimals()
@@ -26,7 +26,7 @@ export const AnimalList = () => {
 
 const navigate = useNavigate()
 
-return (
+return (  // this is telling it to retreive the info from the database to display customer and local data when the add button is clicked
     
             <>
             <h2>Animals</h2>

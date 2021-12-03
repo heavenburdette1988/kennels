@@ -32,9 +32,6 @@ export const ApplicationViews = () => {
        </CustomerProvider>
     </LocationProvider>
  </AnimalProvider>
-
-
-
        
     )
 }
