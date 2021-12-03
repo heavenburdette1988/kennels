@@ -20,19 +20,21 @@ import { AnimalForm } from "./animal/AnimalForm"
 // controller component 
 export const ApplicationViews = () => {
     return (
-        
-<AnimalProvider>
+        <EmployeeProvider>
+     <AnimalProvider>   
    <LocationProvider>
       <CustomerProvider>
          <Routes>
            <Route path="/" element={<Home />} />
               <Route path="animals/*" element={<AnimalList />} />
               <Route path="animals/create/*" element={<AnimalForm />} />
+              <Route path="employees/*" element={<EmployeeList />} />
+              <Route path="employees/create/*" element={<EmployeeForm />} />
            </Routes>
        </CustomerProvider>
     </LocationProvider>
  </AnimalProvider>
-       
+       </EmployeeProvider>
     )
 }
 
