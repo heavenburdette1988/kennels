@@ -33,7 +33,8 @@ export const EmployeeList = () => {
         employees.map(employee => {
 
           const office = locations.find(l => l.id === employee.locationId)
-          return <EmployeeCard key={employee.id} 
+          return <EmployeeCard
+           key={employee.id} 
           location = {office}
           employee={employee} />
         })

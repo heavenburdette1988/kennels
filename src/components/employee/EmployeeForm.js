@@ -6,7 +6,7 @@ import "./Employee.css"
 import { useNavigate } from 'react-router-dom';
 import { EmployeeContext } from "./EmployeeProvider";
 
-export const AnimalForm = () => {
+export const EmployeeForm = () => {
     const { addEmployee } = useContext(EmployeeContext)
     const { locations, getLocations } = useContext(LocationContext)
 
@@ -17,11 +17,10 @@ export const AnimalForm = () => {
     Define the intial state of the form inputs with useState()
     */
 
-    const [animal, setAnimal] = useState({
+    const [employee, setEmployee] = useState({
       name: "",
-      breed:"",
-      locationId: 0,
-      customerId: 0
+      locationId: 0
+    
     });   // setting the state?
 
     const navigate = useNavigate();   //use nav allows you to change url locations?
@@ -31,7 +30,7 @@ export const AnimalForm = () => {
     and locations state on initialization.
     */
     useEffect(() => {
-      getCustomers().then(getLocations)
+      getLocations()
     }, [])
 
     //when a field changes, update state. The return will re-render and display based on the values in state
@@ -39,54 +38,48 @@ export const AnimalForm = () => {
     const handleControlledInputChange = (event) => {
       /* When changing a state object or array,
       always create a copy, make changes, and then set state.*/
-      const newAnimal = { ...animal } // this is giving newAnimal state and properties
+      const newEmployee = { ...employee } // this is giving newAnimal state and properties
 
       
       /* Animal is an object with properties.
       Set the property to the new value
       using object bracket notation. */
-      newAnimal[event.target.id] = event.target.value
+      newEmployee[event.target.id] = event.target.value
       // update state
-      setAnimal(newAnimal)
+      setEmployee(newEmployee)
     }
 
-    const handleClickSaveAnimal = (event) => {
+    const handleClickSaveEmployee = (event) => {
       event.preventDefault() //Prevents the browser from submitting the form
 
-      const locationId = parseInt(animal.locationId)
-      const customerId = parseInt(animal.customerId)
-      animal.locationId = locationId
-      animal.customerId = customerId
+      const locationId = parseInt(employee.locationId)
+      employee.locationId = locationId
+    
 
       if (locationId === 0) {
         window.alert("Please select a location")
       } else {
         //invoke addAnimal passing animal as an argument.
         //once complete, change the url and display the animal list
-        addAnimal(animal)
-        .then(() => navigate("/animals")) //telling it to useNavigate to redisplay updated animal list
+        addEmployee(employee)
+        .then(() => navigate("/employees")) //telling it to useNavigate to redisplay updated animal list
       }
     }
 
     return (
-      <form className="animalForm">
-          <h2 className="animalForm__title">New Animal</h2>
+      <form className="employeeForm">
+          <h2 className="EmployeeForm__title">New Employee</h2>
           <fieldset>
               <div className="form-group">
-                  <label htmlFor="name">Animal name:</label>
-                  <input type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Animal name" value={animal.name}/>
+                  <label htmlFor="name">Employee name:</label>
+                  <input type="text" id="name" required autoFocus className="form-control" placeholder="Employee name" value={employee.name}/>
               </div>
           </fieldset>
-          <fieldset>
-              <div className="form-group">
-                  <label htmlFor="breed">Breed:</label>
-                  <input type="text" id="breed" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Animal breed" value={animal.breed}/>
-              </div>
-          </fieldset>
+         
           <fieldset>
               <div className="form-group">
                   <label htmlFor="location">Assign to location: </label>
-                  <select defaultValue={animal.locationId} name="locationId" id="locationId" className="form-control"  onChange={handleControlledInputChange}>
+                  <select defaultValue={employee.locationId} name="locationId" id="locationId" className="form-control"  onChange={handleControlledInputChange}>
                       <option value="0">Select a location</option>
                       {locations.map(l => (
                           <option key={l.id} value={l.id}>
@@ -96,22 +89,10 @@ export const AnimalForm = () => {
                   </select>
               </div>
           </fieldset>
-          <fieldset>
-              <div className="form-group">
-                  <label htmlFor="customerId">Customer: </label>
-                  <select defaultValue={animal.customerId} name="customer" id="customerId" className="form-control" onChange={handleControlledInputChange} >
-                      <option value="0">Select a customer</option>
-                      {customers.map(c => (
-                          <option key={c.id} value={c.id}>
-                              {c.name}
-                          </option>
-                      ))}
-                  </select>
-              </div>
-          </fieldset>
+    
           <button className="btn btn-primary"
-            onClick={handleClickSaveAnimal}>
-            Save Animal
+            onClick={handleClickSaveEmployee}>
+            Save Employee
           </button>
       </form>
     )

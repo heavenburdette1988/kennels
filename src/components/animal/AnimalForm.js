@@ -73,7 +73,7 @@ export const AnimalForm = () => {
           <fieldset>
               <div className="form-group">
                   <label htmlFor="name">Animal name:</label>
-                  <input type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Animal name" value={animal.name}/>
+                  <input type="text" id="name"  required autoFocus className="form-control" placeholder="Animal name" value={animal.name}/>
               </div>
           </fieldset>
           <fieldset>
