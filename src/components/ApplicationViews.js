@@ -17,6 +17,7 @@ import { LocationList } from "./location/LocationList"
 import { AnimalForm } from "./animal/AnimalForm"
 import { EmployeeForm } from "./employee/EmployeeForm"
 import { LocationForm } from "./location/LocationForm"
+import { AnimalDetail } from "./animal/AnimalDetail"
 
 //Application veiw is where we project what is in your url  When you go to /animals go to animalList  -  Watching URL Bar and wathcing it change showind diff content
 // controller component 
@@ -35,6 +36,11 @@ export const ApplicationViews = () => {
               <Route path="employees/create/*" element={<EmployeeForm />} />
               <Route path="locations/*" element={<LocationList />} />
               <Route path="locations/create/*" element={<LocationForm />} />
+              <Route path="animals/detail/:animalId/*" element={<AnimalDetail />} />
+
+
+
+
            </Routes>
        </CustomerProvider>
     </LocationProvider>

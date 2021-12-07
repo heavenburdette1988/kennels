@@ -9,7 +9,7 @@ import { useNavigate } from "react-router"
 
 
     
-export const AnimalList = () => {
+export const AnimalList = ({history}) => {
   // This state changes when `getAnimals()` is invoked below
   const { animals, getAnimals } = useContext(AnimalContext)
   const { locations, getLocations } = useContext(LocationContext)
@@ -30,17 +30,14 @@ return (  // this is telling it to retreive the info from the database to displa
     
             <>
             <h2>Animals</h2>
-            <button onClick={() => {navigate("create")}}>
-                Add Animal
+            <button onClick={() => navigate("/animals/create")}>
+                Make Reservation
             </button>
         <div className="animals">
         {animals.map(animal => {
-    const owner = customers.find(c => c.id === animal.customerId)
-    const clinic = locations.find(l => l.id === animal.locationId)
-
+    
     return <AnimalCard key={animal.id}
-                location={clinic}
-                customer={owner}
+              
                 animal={animal} />
 })
 }
