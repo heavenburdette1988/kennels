@@ -27,8 +27,28 @@ export const LocationProvider = (props) => {
     const getLocationById = (id) => {
         return fetch(`http://localhost:8088/locations/${id}?_embed=employees&_embed=animals`)
             .then(res => res.json())
+
+            
+    }
+
+    const releaseLocation = locationId => {
+        return fetch(`http://localhost:8088/locations/${locationId}`, {
+            method: "DELETE"
+        })
+            .then(getLocations)
     }
     
+    const updateLocation = location => {
+        return fetch(`http://localhost:8088/locations/${location.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(location)
+        })
+          .then(getLocations)
+      }
+      
     /*
         You return a context provider which has the
         `animals` state, `getAnimals` function,
@@ -37,7 +57,7 @@ export const LocationProvider = (props) => {
     */
     return (
         <LocationContext.Provider value={{
-            locations, getLocations, addLocation, getLocationById
+            locations, getLocations, addLocation, getLocationById, updateLocation, releaseLocation
         }}>
             {props.children}
         </LocationContext.Provider>

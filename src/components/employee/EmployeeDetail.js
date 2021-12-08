@@ -8,6 +8,8 @@ export const EmployeeDetail = () => {
   const { getEmployeeById} = useContext(EmployeeContext)
 
 	const [employee, setEmployee] = useState({})
+    // Update this line of code to include releaseAnimal
+
 
 	const {employeeId} = useParams();
 	const navigate = useNavigate();
