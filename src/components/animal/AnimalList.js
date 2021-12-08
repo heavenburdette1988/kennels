@@ -12,16 +12,16 @@ import { useNavigate } from "react-router"
 export const AnimalList = ({history}) => {
   // This state changes when `getAnimals()` is invoked below
   const { animals, getAnimals } = useContext(AnimalContext)
-  const { locations, getLocations } = useContext(LocationContext)
-  const { customers, getCustomers } = useContext(CustomerContext)
+//   const { locations, getLocations } = useContext(LocationContext)
+//   const { customers, getCustomers } = useContext(CustomerContext)
 
   //useEffect - reach out to the world for something
   useEffect(() => { // hook
     console.log("AnimalList: Initial render before data")
-    getLocations()
-    // getAnimals()
-    .then(getCustomers)
-    .then(getAnimals)
+    // getLocations()
+    // // getAnimals()
+    // .then(getCustomers)
+    getAnimals()
 }, [])
 
 const navigate = useNavigate()

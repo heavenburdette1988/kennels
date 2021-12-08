@@ -22,7 +22,11 @@ export const EmployeeProvider = (props) => {
         })
         .then(getEmployees)
     }
-
+    const getEmployeeById = (id) => {
+        return fetch(`http://localhost:8088/employees/${id}?_expand=location`)
+            .then(res => res.json())
+    }
+    
     /*
         You return a context provider which has the
         `animals` state, `getAnimals` function,
@@ -30,8 +34,11 @@ export const EmployeeProvider = (props) => {
         allows any child elements to access them.
     */
     return (
+
+        //EmployeeContext.provider is an export to get access to v employees, getEmployees, addEmployee,getAnimalById
+
         <EmployeeContext.Provider value={{
-            employees, getEmployees, addEmployee
+            employees, getEmployees, addEmployee,getEmployeeById
         }}>
             {props.children}
         </EmployeeContext.Provider>
