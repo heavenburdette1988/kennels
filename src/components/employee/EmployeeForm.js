@@ -3,11 +3,11 @@ import { LocationContext } from "../location/LocationProvider"
 
 
 import "./Employee.css"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { EmployeeContext } from "./EmployeeProvider";
 
 export const EmployeeForm = () => {
-    const { addEmployee } = useContext(EmployeeContext)
+    const { addEmployee, updateEmployee, getEmployeeById  } = useContext(EmployeeContext)
     const { locations, getLocations } = useContext(LocationContext)
 
 
@@ -17,21 +17,14 @@ export const EmployeeForm = () => {
     Define the intial state of the form inputs with useState()
     */
 
-    const [employee, setEmployee] = useState({
-      name: "",
-      locationId: 0
-    
-    });   // setting the state?
+    const [employee, setEmployee] = useState({});   // setting the state?
+
+    const [isLoading, setIsLoading] = useState(true);
+    const {employeeId} = useParams();
 
     const navigate = useNavigate();   //use nav allows you to change url locations?
 
-    /*
-    Reach out to the world and get customers state
-    and locations state on initialization.
-    */
-    useEffect(() => {
-      getLocations()
-    }, [])
+    
 
     //when a field changes, update state. The return will re-render and display based on the values in state
     //Controlled component
@@ -49,22 +42,69 @@ export const EmployeeForm = () => {
       setEmployee(newEmployee)
     }
 
-    const handleClickSaveEmployee = (event) => {
-      event.preventDefault() //Prevents the browser from submitting the form
+    // const handleClickSaveEmployee = (event) => {
+    //   event.preventDefault() //Prevents the browser from submitting the form
 
-      const locationId = parseInt(employee.locationId)
-      employee.locationId = locationId
+    //   const locationId = parseInt(employee.locationId)
+    //   employee.locationId = locationId
     
 
-      if (locationId === 0) {
+    //   if (locationId === 0) {
+    //     window.alert("Please select a location")
+    //   } else {
+    //     //invoke addAnimal passing animal as an argument.
+    //     //once complete, change the url and display the animal list
+    //     addEmployee(employee)
+    //     .then(() => navigate("/employees")) //telling it to useNavigate to redisplay updated animal list
+    //   }
+    // }
+
+    const handleSaveEmployee = () => {
+      if (parseInt(employee.locationId) === 0) {
         window.alert("Please select a location")
-      } else {
-        //invoke addAnimal passing animal as an argument.
-        //once complete, change the url and display the animal list
-        addEmployee(employee)
-        .then(() => navigate("/employees")) //telling it to useNavigate to redisplay updated animal list
+
+      }else{
+
+        setIsLoading(true);
+        
+      if (employeeId){
+        //PUT - update
+        updateEmployee({
+            id: employee.id,
+            name: employee.name,
+            locationId: parseInt(employee.locationId)
+        
+        })
+        .then(() => navigate(`/employees/detail/${employee.id}`))
+      }else {
+        //POST - add
+        addEmployee({
+            name: employee.name,
+            locationId: parseInt(employee.locationId)
+        })
+        .then(() => navigate("/locations"))
       }
+  }
     }
+/*
+    Reach out to the world and get customers state
+    and locations state on initialization.
+    */
+    useEffect(() => {
+      getLocations().then(() => {
+        if (employeeId){
+          getEmployeeById(employeeId)
+          .then(employee => {
+              setEmployee(employee)
+              setIsLoading(false)
+          })
+        } else {
+          setIsLoading(false)
+        }
+      })
+    }, [])
+
+
 
     return (
       <form className="employeeForm">
@@ -72,14 +112,16 @@ export const EmployeeForm = () => {
           <fieldset>
               <div className="form-group">
                   <label htmlFor="name">Employee name:</label>
-                  <input type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Employee name" value={employee.name}/>
+                  <input type="text" id="name" name="name" required autoFocus className="form-control" placeholder="Employee name"
+                  onChange={handleControlledInputChange}  defaultValue={employee.name}/>
               </div>
           </fieldset>
          
           <fieldset>
               <div className="form-group">
                   <label htmlFor="location">Assign to location: </label>
-                  <select defaultValue={employee.locationId} name="locationId" id="locationId" className="form-control"  onChange={handleControlledInputChange}>
+                  <select value={employee.locationId} name="locationId" id="locationId" className="form-control" 
+                  onChange={handleControlledInputChange}>
                       <option value="0">Select a location</option>
                       {locations.map(l => (
                           <option key={l.id} value={l.id}>
@@ -91,9 +133,14 @@ export const EmployeeForm = () => {
           </fieldset>
     
           <button className="btn btn-primary"
-            onClick={handleClickSaveEmployee}>
-            Save Employee
-          </button>
+          disabled={isLoading}
+          onClick={event => {
+            event.preventDefault() // Prevent browser from submitting the form and refreshing the page
+            handleSaveEmployee()
+          }}>
+        {employeeId ? <>Save Employee</> : <>Add Employee</>}</button>
+     
       </form>
     )
+
 }

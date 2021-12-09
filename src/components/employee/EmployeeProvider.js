@@ -26,7 +26,17 @@ export const EmployeeProvider = (props) => {
         return fetch(`http://localhost:8088/employees/${id}?_expand=location`)
             .then(res => res.json())
     }
-    
+    const updateEmployee = employee => {
+        return fetch(`http://localhost:8088/employees/${employee.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(employee)
+        })
+          .then(getEmployees)
+      }
+      
     /*
         You return a context provider which has the
         `animals` state, `getAnimals` function,
@@ -38,7 +48,7 @@ export const EmployeeProvider = (props) => {
         //EmployeeContext.provider is an export to get access to v employees, getEmployees, addEmployee,getAnimalById
 
         <EmployeeContext.Provider value={{
-            employees, getEmployees, addEmployee,getEmployeeById
+            employees, getEmployees, addEmployee,getEmployeeById, updateEmployee
         }}>
             {props.children}
         </EmployeeContext.Provider>

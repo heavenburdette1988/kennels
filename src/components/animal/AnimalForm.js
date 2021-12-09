@@ -13,6 +13,7 @@ export const AnimalForm = () => {
     //for edit, hold on to state of animal in this view
     const [animal, setAnimal] = useState({})
     //wait for data before button is active
+    //when button is true then we cant click it and if false can click it.
     const [isLoading, setIsLoading] = useState(true);
 
     const {animalId} = useParams();
@@ -32,11 +33,12 @@ export const AnimalForm = () => {
     }
 
     const handleSaveAnimal = () => {
-      if (parseInt(animal.locationId) === 0) {
-          window.alert("Please select a location")
+      if (parseInt(animal.locationId) === 0 || parseInt(animal.customerId) === 0 ) {
+          window.alert("Please select a location and customer")
       } else {
-        //disable the button - no extra clicks
+        //setIsLoading disable the button - no extra clicks - does not allow dupe entries 
         setIsLoading(true);
+        // if an anaimal has an id, it will edit other wise it adds animal 
         if (animalId){
           //PUT - update
           updateAnimal({
@@ -62,6 +64,8 @@ export const AnimalForm = () => {
 
     // Get customers and locations. If animalId is in the URL, getAnimalById
     useEffect(() => {
+      //setisloading false means you can click button
+      // if you have animal id change the state otherwise creat animal 
       getCustomers().then(getLocations).then(() => {
         if (animalId){
           getAnimalById(animalId)
@@ -93,7 +97,7 @@ export const AnimalForm = () => {
         <fieldset>
           <div className="form-group">
             <label htmlFor="animalBreed"> Animal Breed: </label>
-            <input type="text" id="breed" name="breed" className="form-control"
+            <input type="text" id="breed" name="breed" required className="form-control"
             placeholder="Animal Breed"
             onChange={handleControlledInputChange}
             defaultValue={animal.breed}/>
@@ -126,6 +130,7 @@ export const AnimalForm = () => {
           </div>
         </fieldset>
         <button className="btn btn-primary"
+        // disable is letting it know if we can click it an state is set to true
           disabled={isLoading}
           onClick={event => {
             event.preventDefault() // Prevent browser from submitting the form and refreshing the page

@@ -21,7 +21,7 @@ export const EmployeeList = ({history}) => {
   return (
     <>
     <h2>Employees</h2>
-    <button onClick={() => navigate("/animals/create")}>
+    <button onClick={() => navigate("/employees/create")}>
         Add Employee
     </button>
     <div className="employees">
